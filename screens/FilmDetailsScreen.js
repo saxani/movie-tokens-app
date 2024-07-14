@@ -12,12 +12,12 @@ const FilmDetails = ({ route }) => {
 
   const [runtime, setRuntime] = useState('');
   const [rating, setRating] = useState('');
-  const { posterURL } = useContext(FilmsContext);
+  const { posterURL, serverURL } = useContext(FilmsContext);
 
   const { item } = route.params;
 
   useEffect(() => {
-    fetch('http://192.168.2.131:4000/movie-details', {
+    fetch(`${serverURL}/movie-details`, {
       headers: {
         'Content-Type': 'application/json',
       },

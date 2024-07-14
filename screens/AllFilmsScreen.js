@@ -1,10 +1,27 @@
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Modal, Dimensions } from 'react-native';
+import { useState, useEffect, useContext } from 'react';
 
 import FilmList from '../components/FilmList';
+import FilmSurvey from '../components/FilmSurvey';
+
+import { FilmsContext } from '../context/Films';
 
 const AllFilmsScreen = ({ navigation }) => {
+  const { filmDone } = useContext(FilmsContext);
+  const [modalVisible, setModalVisible] = useState(false);
+
   //Hope to make this dynamic
   const city = 'Seattle, WA';
+
+  useEffect(() => {
+    if (filmDone) {
+      setModalVisible(true);
+    }
+  }, [filmDone]);
+
+  const handleModal = () => {
+    setModalVisible(false);
+  };
 
   return (
     <View style={styles.container}>
@@ -12,6 +29,7 @@ const AllFilmsScreen = ({ navigation }) => {
       <View style={styles.listContainer}>
         <FilmList navigation={navigation} />
       </View>
+      <FilmSurvey modalVisible={modalVisible} handleModal={handleModal} />
     </View>
   );
 };
@@ -35,6 +53,27 @@ const styles = StyleSheet.create({
     margin: 10,
     fontSize: 14,
     color: '#fff',
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
+    width: '80%',
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'flex-start',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
 });
 

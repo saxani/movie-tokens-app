@@ -1,13 +1,16 @@
 import { useState, useContext } from 'react';
 
 import { View, Modal, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import { FilmsContext } from '../context/Films';
+import Button from './Button';
 
 const MovieTime = ({ item, type, name }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const { selectedFilm, updateSelectedFilm, updateToSee } =
     useContext(FilmsContext);
+  const navigation = useNavigation();
 
   const handleTimePress = () => {
     updateSelectedFilm({ time: item, viewType: type, theater: name });
@@ -15,8 +18,9 @@ const MovieTime = ({ item, type, name }) => {
   };
 
   const handleConfirmPress = () => {
-    updateToSee(selectedFilm.title);
+    updateToSee();
     setModalVisible(false);
+    navigation.navigate('FilmList');
   };
 
   return (
@@ -38,18 +42,8 @@ const MovieTime = ({ item, type, name }) => {
               <Text>Type: {selectedFilm.viewType}</Text>
             )}
             <View style={styles.buttonWrapper}>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={handleConfirmPress}
-              >
-                <Text style={styles.textStyle}>Confirm</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => setModalVisible(false)}
-              >
-                <Text style={styles.textStyle}>Cancel</Text>
-              </TouchableOpacity>
+              <Button text='Confirm' onPress={handleConfirmPress} />
+              <Button text='Cancel' onPress={() => setModalVisible(false)} />
             </View>
           </View>
         </View>

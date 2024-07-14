@@ -10,7 +10,11 @@ const DetailsTabs = ({ movieDetails, showtimesDetails }) => {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    updateSelectedFilm({ title: movieDetails.original_title });
+    updateSelectedFilm({
+      title: movieDetails.original_title,
+      filmID: movieDetails.id,
+      poster: movieDetails.poster_path,
+    });
   }, [movieDetails]);
 
   return (
@@ -53,7 +57,7 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   selected: {
-    color: '#630069',
+    color: '#A16AE8',
   },
 });
 

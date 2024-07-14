@@ -3,20 +3,26 @@ import { createContext, useState } from 'react';
 const FilmsContext = createContext(1);
 
 const Provider = ({ children }) => {
+  const serverURL = 'https://movie-tokens-server-3331c046a6df.herokuapp.com';
+  // const serverURL = 'http://192.168.2.131:4000';
   const [films, setFilms] = useState('');
   const [posterURL, setPosterURL] = useState('');
+
   const [selectedFilm, setSelectedFilm] = useState({
+    filmID: '',
     title: '',
     date: '',
     theater: '',
     viewType: '',
     time: '',
+    poster: '',
   });
-  const [toSee, setToSee] = useState('');
-  const [seenFilms, setSeenFilms] = useState([]);
 
-  const getNowPlayingFilms = () => {
-    fetch('http://192.168.2.131:4000/now-playing')
+  const [tokens, setTokens] = useState([]);
+  const [filmDone, setFilmDone] = useState(false);
+
+  const getFilmData = async () => {
+    fetch(`${serverURL}/now-playing`)
       .then((res) => res.json())
       .then((data) => {
         setFilms(data);
@@ -25,7 +31,7 @@ const Provider = ({ children }) => {
         console.error(error);
       });
 
-    fetch('http://192.168.2.131:4000/poster-url')
+    fetch(`${serverURL}/poster-url`)
       .then((res) => res.json())
       .then((data) => {
         setPosterURL(data.poster);
@@ -33,16 +39,35 @@ const Provider = ({ children }) => {
       .catch((error) => {
         console.error(error);
       });
+
+    fetch(`${serverURL}/get-all-tokens`)
+      .then((res) => res.json())
+      .then((data) => {
+        setTokens(data.tokens);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
-  const updateSelectedFilm = ({ title, date, theater, viewType, time }) => {
+  const updateSelectedFilm = ({
+    filmID,
+    title,
+    date,
+    theater,
+    viewType,
+    time,
+    poster,
+  }) => {
     let updatedValues = {};
 
+    filmID ? (updatedValues.filmID = filmID) : '';
     title ? (updatedValues.title = title) : '';
     date ? (updatedValues.date = date) : '';
     theater ? (updatedValues.theater = theater) : '';
     viewType ? (updatedValues.viewType = viewType) : '';
     time ? (updatedValues.time = time) : '';
+    poster ? (updatedValues.poster = poster) : '';
 
     setSelectedFilm((selectedFilm) => ({
       ...selectedFilm,
@@ -51,24 +76,26 @@ const Provider = ({ children }) => {
   };
 
   const updateToSee = (film) => {
-    setToSee(film);
+    setTimeout(() => {
+      setFilmDone(true);
+    }, 3000);
   };
 
-  const updateSeenFilms = (film) => {
-    setSeenFilms((seenFilms) => ({
-      ...seenFilms,
-      ...film,
-    }));
+  const updateSeenFilms = (newTokenURL) => {
+    setTokens([...tokens, newTokenURL]);
   };
 
   const value = {
     films,
     posterURL,
-    getNowPlayingFilms,
+    getFilmData,
     updateSelectedFilm,
     selectedFilm,
     updateSeenFilms,
+    tokens,
     updateToSee,
+    serverURL,
+    filmDone,
   };
 
   return (

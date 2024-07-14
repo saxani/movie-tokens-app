@@ -13,10 +13,10 @@ import Search from './components/Search';
 const Tab = createBottomTabNavigator();
 
 const TabScreens = () => {
-  const { getNowPlayingFilms } = useContext(FilmsContext);
+  const { getFilmData } = useContext(FilmsContext);
 
   useEffect(() => {
-    getNowPlayingFilms();
+    getFilmData();
   }, []);
 
   return (
@@ -36,8 +36,8 @@ const TabScreens = () => {
           backgroundColor: '#fff',
           height: 100,
         },
-        tabBarActiveTintColor: '#333',
-        tabBarInactiveTintColor: '#888',
+        tabBarActiveTintColor: '#A16AE8',
+        tabBarInactiveTintColor: '#bbb',
       })}
     >
       <Tab.Screen name='Home' component={HomeScreen} />

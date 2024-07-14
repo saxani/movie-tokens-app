@@ -49,7 +49,6 @@ const MovieCard = ({ item, posterURL, navigation }) => {
       />
       <Text style={styles.title}>{item.title}</Text>
       <Text style={styles.rating}>{rating}/10</Text>
-      <Text>{item.id}</Text>
     </TouchableOpacity>
   );
 };

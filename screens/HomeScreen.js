@@ -22,7 +22,7 @@ const HomeScreen = ({ navigation }) => {
         options={{
           headerLeft: () => (
             <AntDesign
-              name='back'
+              name='arrowleft'
               size={32}
               color='black'
               style={{ marginLeft: 10 }}

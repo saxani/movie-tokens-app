@@ -71,6 +71,7 @@ const Showtimes = ({ showtimesDetails }) => {
 const styles = StyleSheet.create({
   dateContainer: {
     marginBottom: 20,
+    height: 100,
   },
   dateButton: {
     alignItems: 'center',
