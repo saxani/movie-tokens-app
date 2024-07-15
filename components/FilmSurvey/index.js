@@ -39,7 +39,7 @@ const FilmSurvey = ({ modalVisible, handleModal }) => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        updateSeenFilms(data.token);
+        data.token && updateSeenFilms(data.token);
       })
       .catch((error) => {
         console.error(error);

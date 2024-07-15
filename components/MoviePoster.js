@@ -5,7 +5,7 @@ const MoviePoster = ({ path, posterURL, width, height, marginBottom }) => {
     image: {
       width: width,
       height: height,
-      marginBottom: marginBottom,
+      marginBottom: marginBottom || 0,
     },
   });
 

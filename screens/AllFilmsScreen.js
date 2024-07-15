@@ -1,17 +1,17 @@
-import { StyleSheet, Text, View, Modal, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import { useState, useEffect, useContext } from 'react';
 
 import FilmList from '../components/FilmList';
+import FilmSlider from '../components/FilmSlider';
 import FilmSurvey from '../components/FilmSurvey';
+import ViewButtons from '../components/ViewButtons';
 
 import { FilmsContext } from '../context/Films';
 
 const AllFilmsScreen = ({ navigation }) => {
   const { filmDone } = useContext(FilmsContext);
+  const [viewMode, setViewMode] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
-
-  //Hope to make this dynamic
-  const city = 'Seattle, WA';
 
   useEffect(() => {
     if (filmDone) {
@@ -23,18 +23,27 @@ const AllFilmsScreen = ({ navigation }) => {
     setModalVisible(false);
   };
 
+  const handleSetViewMode = (num) => {
+    setViewMode(num);
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Now playing near {city}:</Text>
-      <View style={styles.listContainer}>
-        <FilmList navigation={navigation} />
-      </View>
+      <ViewButtons handleSetViewMode={handleSetViewMode} viewMode={viewMode} />
+      {viewMode === 0 && (
+        <View style={styles.listContainer}>
+          <FilmList navigation={navigation} />
+        </View>
+      )}
+
+      {viewMode === 1 && <FilmSlider navigation={navigation} />}
       <FilmSurvey modalVisible={modalVisible} handleModal={handleModal} />
     </View>
   );
 };
 
 const windowWidth = Dimensions.get('window').width;
+console.log(windowWidth);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -43,16 +52,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   listContainer: {
-    flex: 2, // the number of columns you want to devide the screen into
+    flex: 2,
     marginHorizontal: 'auto',
     width: windowWidth,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  title: {
-    margin: 10,
-    fontSize: 14,
-    color: '#fff',
   },
   centeredView: {
     flex: 1,

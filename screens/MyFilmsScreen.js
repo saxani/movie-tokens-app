@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import {
   StyleSheet,
   Text,
@@ -29,15 +29,8 @@ const SeenFilm = ({ item, serverURL }) => {
 
 const MyFilmsScreen = () => {
   const { tokens, serverURL } = useContext(FilmsContext);
-  console.log('SHOULD TRIGGER RERENDERRRRR');
+  console.log('Current tokens: ');
   console.log(tokens);
-
-  useEffect(() => {
-    return () => {
-      // Return nothing for cleanup
-      console.log('un mount');
-    };
-  }, []);
 
   return (
     <View style={styles.container}>
