@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import { StyleSheet, View, Dimensions } from 'react-native';
 import { useState, useEffect, useContext } from 'react';
 
 import FilmList from '../components/FilmList';
@@ -9,7 +9,7 @@ import ViewButtons from '../components/ViewButtons';
 import { FilmsContext } from '../context/Films';
 
 const AllFilmsScreen = ({ navigation }) => {
-  const { filmDone } = useContext(FilmsContext);
+  const { filmDone, updateToSee } = useContext(FilmsContext);
   const [viewMode, setViewMode] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -21,6 +21,7 @@ const AllFilmsScreen = ({ navigation }) => {
 
   const handleModal = () => {
     setModalVisible(false);
+    updateToSee();
   };
 
   const handleSetViewMode = (num) => {
@@ -43,7 +44,6 @@ const AllFilmsScreen = ({ navigation }) => {
 };
 
 const windowWidth = Dimensions.get('window').width;
-console.log(windowWidth);
 const styles = StyleSheet.create({
   container: {
     flex: 1,

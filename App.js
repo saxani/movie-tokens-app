@@ -1,4 +1,5 @@
 import { useEffect, useContext } from 'react';
+import { LogBox } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Fontisto from '@expo/vector-icons/Fontisto';
@@ -14,6 +15,10 @@ const Tab = createBottomTabNavigator();
 
 const TabScreens = () => {
   const { getFilmData } = useContext(FilmsContext);
+
+  // Ignore all log notifications
+  // Just for presentation purposes
+  LogBox.ignoreAllLogs();
 
   useEffect(() => {
     getFilmData();

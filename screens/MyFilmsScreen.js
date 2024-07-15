@@ -29,8 +29,6 @@ const SeenFilm = ({ item, serverURL }) => {
 
 const MyFilmsScreen = () => {
   const { tokens, serverURL } = useContext(FilmsContext);
-  console.log('Current tokens: ');
-  console.log(tokens);
 
   return (
     <View style={styles.container}>

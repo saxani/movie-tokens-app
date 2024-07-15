@@ -42,8 +42,12 @@ const MovieTime = ({ item, type, name }) => {
               <Text>Type: {selectedFilm.viewType}</Text>
             )}
             <View style={styles.buttonWrapper}>
+              <Button
+                text='Cancel'
+                onPress={() => setModalVisible(false)}
+                outlined={true}
+              />
               <Button text='Confirm' onPress={handleConfirmPress} />
-              <Button text='Cancel' onPress={() => setModalVisible(false)} />
             </View>
           </View>
         </View>

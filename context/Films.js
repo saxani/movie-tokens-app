@@ -75,10 +75,14 @@ const Provider = ({ children }) => {
     }));
   };
 
-  const updateToSee = (film) => {
-    setTimeout(() => {
-      setFilmDone(true);
-    }, 3000);
+  const updateToSee = () => {
+    if (filmDone) {
+      setFilmDone(false);
+    } else {
+      setTimeout(() => {
+        setFilmDone(true);
+      }, 3000);
+    }
   };
 
   const updateSeenFilms = (newTokenURL) => {
