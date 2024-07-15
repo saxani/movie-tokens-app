@@ -24,8 +24,8 @@ const SurveyInput = ({ q, updateAnswer, cancelSurvey }) => {
         placeholder='Answer here...'
       />
       <View style={styles.buttonWrapper}>
+        <Button onPress={handleCancel} text='Cancel' outlined={true} />
         <Button onPress={handlePress} text='Next' />
-        <Button onPress={handleCancel} text='Cancel' />
       </View>
     </View>
   );

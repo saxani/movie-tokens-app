@@ -14,7 +14,7 @@ const FilmSurvey = ({ modalVisible, handleModal }) => {
   const [answers, setAnswers] = useState([]);
 
   const updateAnswer = (value) => {
-    setAnswers((oldArray) => [...oldArray, value]);
+    setAnswers([...answers, value]);
     setQuestion(question + 1);
   };
 
@@ -24,6 +24,9 @@ const FilmSurvey = ({ modalVisible, handleModal }) => {
 
   const handleSubmit = () => {
     handleModal();
+    setQuestion(1);
+
+    console.log('Going to send: ' + answers);
 
     fetch(`${serverURL}/survey-results`, {
       headers: {
@@ -38,6 +41,7 @@ const FilmSurvey = ({ modalVisible, handleModal }) => {
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log('got link back from server: ');
         console.log(data);
         updateSeenFilms(data.token);
       })

@@ -1,8 +1,13 @@
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
-const Button = ({ onPress, text }) => (
-  <TouchableOpacity style={styles.button} onPress={onPress}>
-    <Text style={styles.text}>{text}</Text>
+const Button = ({ onPress, text, outlined }) => (
+  <TouchableOpacity
+    style={[styles.button, outlined ? styles.outlined : '']}
+    onPress={onPress}
+  >
+    <Text style={[styles.text, outlined ? styles.textOutlined : '']}>
+      {text}
+    </Text>
   </TouchableOpacity>
 );
 
@@ -16,9 +21,17 @@ const styles = StyleSheet.create({
     width: 100,
     alignItems: 'center',
   },
+  outlined: {
+    borderColor: '#603F8B',
+    borderWidth: 1,
+    backgroundColor: '#fff',
+  },
   text: {
     fontSize: 16,
     color: '#fff',
+  },
+  textOutlined: {
+    color: '#603F8B',
   },
 });
 

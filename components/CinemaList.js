@@ -35,7 +35,7 @@ const Cinema = ({ item }) => {
           <ViewingType item={item} name={location.name} />
         )}
         keyExtractor={(item, index) =>
-          item.type ? item.type : `${index}-standard`
+          item.type ? `${index}-${item.type}` : `${index}-standard`
         }
       />
     </View>
@@ -43,11 +43,10 @@ const Cinema = ({ item }) => {
 };
 
 const CinemaList = ({ cinemaTimes }) => {
-  const data = cinemaTimes.theaters;
-
-  if (!cinemaTimes) {
+  if (!cinemaTimes || !cinemaTimes.theaters) {
     return;
   }
+  const data = cinemaTimes.theaters;
 
   return (
     <FlatList

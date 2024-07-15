@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Modal, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import { useState, useEffect, useContext } from 'react';
 
 import FilmList from '../components/FilmList';
@@ -7,7 +7,7 @@ import FilmSurvey from '../components/FilmSurvey';
 import { FilmsContext } from '../context/Films';
 
 const AllFilmsScreen = ({ navigation }) => {
-  const { filmDone } = useContext(FilmsContext);
+  const { filmDone, updateToSee } = useContext(FilmsContext);
   const [modalVisible, setModalVisible] = useState(false);
 
   //Hope to make this dynamic
@@ -21,6 +21,7 @@ const AllFilmsScreen = ({ navigation }) => {
 
   const handleModal = () => {
     setModalVisible(false);
+    updateToSee();
   };
 
   return (

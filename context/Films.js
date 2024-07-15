@@ -3,8 +3,8 @@ import { createContext, useState } from 'react';
 const FilmsContext = createContext(1);
 
 const Provider = ({ children }) => {
-  const serverURL = 'https://movie-tokens-server-3331c046a6df.herokuapp.com';
-  // const serverURL = 'http://192.168.2.131:4000';
+  // const serverURL = 'https://movie-tokens-server-3331c046a6df.herokuapp.com';
+  const serverURL = 'http://192.168.2.131:4000';
   const [films, setFilms] = useState('');
   const [posterURL, setPosterURL] = useState('');
 
@@ -75,10 +75,14 @@ const Provider = ({ children }) => {
     }));
   };
 
-  const updateToSee = (film) => {
-    setTimeout(() => {
-      setFilmDone(true);
-    }, 3000);
+  const updateToSee = () => {
+    if (filmDone) {
+      setFilmDone(false);
+    } else {
+      setTimeout(() => {
+        setFilmDone(true);
+      }, 3000);
+    }
   };
 
   const updateSeenFilms = (newTokenURL) => {
